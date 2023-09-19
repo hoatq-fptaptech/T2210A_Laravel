@@ -6,7 +6,7 @@
         @endphp
         <ul>
             @foreach ($categories as $c)
-                <li><a href="#">{{$c->name}}</a></li>
+                <li><a href="{{url("/category",["category"=>$c->slug])}}">{{$c->name}}</a></li>
             @endforeach
         </ul>
     </div>
