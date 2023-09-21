@@ -38,6 +38,28 @@ class HomeController extends Controller
     }
 
     public function product(Product $product){
-        return view("pages.product",compact("product"));
+        $relateds = Product::where("category_id",$product->category_id)
+                ->where("id","!=",$product->id)
+                ->where("qty",">",0)
+                ->orderBy("created_at","desc")
+                ->limit(4)
+                ->get();
+        return view("pages.product",compact("product","relateds"));
+    }
+
+    public function addToCart(Product $product, Request $request){
+        $buy_qty = $request->get("buy_qty");
+        $cart = session()->has("cart")?session("cart"):[];
+        foreach ($cart as $item){
+            if($item->id == $product->id){
+                $item->buy_qty = $item->buy_qty + $buy_qty;
+                session(["cart"=>$cart]);
+                return redirect()->back()->with("success","Đã thêm sản phẩm vào giỏ hàng");
+            }
+        }
+        $product->buy_qty = $buy_qty;
+        $cart[] = $product;
+        session(["cart"=>$cart]);
+        return redirect()->back()->with("success","Đã thêm sản phẩm vào giỏ hàng");
     }
 }
