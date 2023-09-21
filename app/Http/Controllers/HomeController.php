@@ -36,4 +36,8 @@ class HomeController extends Controller
             ->orderBy("created_at","desc")->paginate(12);
         return view("pages.category",compact("products"));
     }
+
+    public function product(Product $product){
+        return view("pages.product",compact("product"));
+    }
 }
