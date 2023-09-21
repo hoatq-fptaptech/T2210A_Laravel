@@ -1,6 +1,9 @@
 @extends("layouts.app")
 @section("main")
     <div class="container">
+        @if(count($cart)==0)
+            <p>Không có sản phẩm nào trong giỏ hàng</p>
+        @else
         <div class="row">
             <div class="col-lg-12">
                 <div class="shoping__cart__table">
@@ -79,5 +82,7 @@
                 </div>
             </div>
         </div>
+        @endif
     </div>
+
 @endsection
