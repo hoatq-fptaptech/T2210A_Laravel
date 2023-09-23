@@ -2,11 +2,13 @@
 
 namespace App\Http\Controllers;
 
+use App\Mail\OrderMail;
 use App\Models\Category;
 use App\Models\Order;
 use App\Models\Product;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Mail;
 
 class HomeController extends Controller
 {
@@ -131,7 +133,12 @@ class HomeController extends Controller
             $product->update(["qty"=>$product->qty- $item->buy_qty]);
         }
         // clear cart
-        session()->forget("cart");
+//        session()->forget("cart");
+        // send email
+        Mail::to($request->get("email"))
+//            ->cc("mail nhan vien")
+//            ->bcc("mail quan ly")
+            ->send(new OrderMail($order));
         return redirect()->to("thank-you")->with("order",$order);
     }
 }
