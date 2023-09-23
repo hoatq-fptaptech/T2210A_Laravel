@@ -12,6 +12,7 @@ class Order extends Model
 
     protected $fillable = [
       "grand_total",
+        "email",
       "status",
       "user_id",
       "full_name",

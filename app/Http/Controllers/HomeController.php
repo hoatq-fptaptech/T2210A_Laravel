@@ -114,6 +114,7 @@ class HomeController extends Controller
         $order = Order::create([
              "grand_total"=>$total,
              "full_name"=>$request->get("full_name"),
+             "email"=>$request->get("email"),
              "tel"=>$request->get("tel"),
              "address"=>$request->get("address"),
              "shipping_method"=>$request->get("shipping_method"),
