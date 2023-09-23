@@ -19,6 +19,7 @@ Route::get("about-us",[\App\Http\Controllers\HomeController::class,"aboutUs"]);
 Route::get('/detail/{product:slug}', [\App\Http\Controllers\HomeController::class,"product"]);
 Route::get('/add-to-cart/{product}', [\App\Http\Controllers\HomeController::class,"addToCart"]);
 Route::get('/cart', [\App\Http\Controllers\HomeController::class,"cart"]);
+Route::get('/checkout', [\App\Http\Controllers\HomeController::class,"checkout"]);
 
 
 

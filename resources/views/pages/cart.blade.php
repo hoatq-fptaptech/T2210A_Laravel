@@ -78,7 +78,7 @@
                         <li>VAT <span>10%</span></li>
                         <li>Total <span>${{$total}}</span></li>
                     </ul>
-                    <a href="#" class="primary-btn btn @if(!$can_checkout)disabled @endif">PROCEED TO CHECKOUT</a>
+                    <a href="{{url("checkout")}}" class="primary-btn btn @if(!$can_checkout)disabled @endif">PROCEED TO CHECKOUT</a>
                 </div>
             </div>
         </div>

@@ -74,4 +74,20 @@ class HomeController extends Controller
         $total = $subtotal*1.1; // vat: 10%
         return view("pages.cart",compact("cart","subtotal","total","can_checkout"));
     }
+
+    public function checkout(){
+        $cart = session()->has("cart")?session("cart"):[];
+        $subtotal = 0;
+        $can_checkout = true;
+        foreach ($cart as $item){
+            $subtotal += $item->price * $item->buy_qty;
+            if($item->buy_qty > $item->qty)
+                $can_checkout = false;
+        }
+        $total = $subtotal*1.1; // vat: 10%
+        if(count($cart)==0 || !$can_checkout){
+            return redirect()->to("cart");
+        }
+        return view("pages.checkout",compact("cart","subtotal","total"));
+    }
 }
