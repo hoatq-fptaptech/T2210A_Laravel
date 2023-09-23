@@ -90,4 +90,15 @@ class HomeController extends Controller
         }
         return view("pages.checkout",compact("cart","subtotal","total"));
     }
+
+    public function placeOrder(Request $request){
+         $request->validate([
+             "full_name"=>"required|min:6",
+             "address"=>"required",
+             "tel"=> "required|min:9|max:11",
+             "email"=>"required",
+             "shipping_method"=>"required",
+             "payment_method"=>"required"
+         ]);
+    }
 }
