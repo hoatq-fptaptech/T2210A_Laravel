@@ -133,12 +133,21 @@ class HomeController extends Controller
             $product->update(["qty"=>$product->qty- $item->buy_qty]);
         }
         // clear cart
-//        session()->forget("cart");
+        session()->forget("cart");
         // send email
         Mail::to($request->get("email"))
 //            ->cc("mail nhan vien")
 //            ->bcc("mail quan ly")
             ->send(new OrderMail($order));
-        return redirect()->to("thank-you")->with("order",$order);
+        return redirect()->to("thank-you/$order->id");
+    }
+
+    public function thankYou(Order $order){
+//        $items = DB::table("order_products")->where("order_id",$order->id)
+//                        ->join("products","order_products.product_id","=","products.id")
+//                        ->select("products.id","products.name","products.thumbnail","order_products.price",
+//                        "order_products.qty")
+//                        ->get();
+        return view("pages.thankyou",compact("order"));
     }
 }

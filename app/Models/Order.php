@@ -22,4 +22,8 @@ class Order extends Model
       "payment_method",
       "is_paid",
     ];
+
+    public function Products(){
+        return $this->belongsToMany(Product::class,"order_products")->withPivot(["qty","price"]);
+    }
 }
