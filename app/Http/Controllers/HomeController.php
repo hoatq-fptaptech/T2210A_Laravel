@@ -134,8 +134,8 @@ class HomeController extends Controller
             $product->update(["qty"=>$product->qty- $item->buy_qty]);
         }
         // clear cart
-//        session()->forget("cart");
-//        event(new CreateNewOrder($order));
+        session()->forget("cart");
+        event(new CreateNewOrder($order));
 
         // thanh toan paypal
         if($order->payment_method == "Paypal"){
@@ -169,12 +169,12 @@ class HomeController extends Controller
                 }
 
                 return redirect()
-                    ->route('createTransaction')
+                    ->back()
                     ->with('error', 'Something went wrong.');
 
             } else {
                 return redirect()
-                    ->route('createTransaction')
+                    ->back()
                     ->with('error', $response['message'] ?? 'Something went wrong.');
             }
         }
