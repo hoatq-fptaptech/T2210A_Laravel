@@ -2,6 +2,7 @@
 
 namespace App\Http\Controllers;
 
+use App\Events\CreateNewOrder;
 use App\Mail\OrderMail;
 use App\Models\Category;
 use App\Models\Order;
@@ -134,11 +135,8 @@ class HomeController extends Controller
         }
         // clear cart
         session()->forget("cart");
-        // send email
-        Mail::to($request->get("email"))
-//            ->cc("mail nhan vien")
-//            ->bcc("mail quan ly")
-            ->send(new OrderMail($order));
+
+        event(new CreateNewOrder($order));
         return redirect()->to("thank-you/$order->id");
     }
 
