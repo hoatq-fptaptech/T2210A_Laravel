@@ -13,6 +13,11 @@ use Srmklive\PayPal\Services\PayPal as PayPalClient;
 
 class HomeController extends Controller
 {
+    public function __construct()
+    {
+//        $this->middleware("auth");
+    }
+
     public function home(){
 //        $products = Product::where("qty",">",30)
 //                        ->where("price",">",500)
