@@ -38,8 +38,8 @@ class Order extends Model
         return "$".number_format($this->grand_total,2);
     }
     public function getPaid(){
-        return $this->is_paid?"<span class='btn btn-success'>Đã thanh toán</span>"
-            :"<span class='btn btn-secondary'>Chưa thanh toán</span>";
+        return $this->is_paid?"<span class='bg-success p-2 small'>Đã thanh toán</span>"
+            :"<span class='bg-secondary p-2 small'>Chưa thanh toán</span>";
     }
     public function getStatus(){
         switch ($this->status){
