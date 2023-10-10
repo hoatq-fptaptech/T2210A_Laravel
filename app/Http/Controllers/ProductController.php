@@ -10,6 +10,8 @@ use Illuminate\Support\Str;
 class ProductController extends Controller
 {
     public function index(){
+//        $products = Product::onlyTrashed()->orderBy("id","desc")->paginate(20);
+//        $products = Product::withTrashed()->orderBy("id","desc")->paginate(20);
         $products = Product::orderBy("id","desc")->paginate(20);
         return view("admin.pages.product.index",[
             "products"=>$products
