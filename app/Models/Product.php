@@ -47,4 +47,19 @@ class Product extends Model
         }
         return $query;
     }
+
+    public function scopeFromPrice($query,$request){
+        if($request->has("price_from")&& $request->get("price_from") != 0){
+            $price_from= $request->get("price_from");
+            $query->where("price",">=",$price_from);
+        }
+        return $query;
+    }
+    public function scopeToPrice($query,$request){
+        if($request->has("price_to")&& $request->get("price_to") != 0){
+            $price_to= $request->get("price_to");
+            $query->where("price","<=",$price_to);
+        }
+        return $query;
+    }
 }
