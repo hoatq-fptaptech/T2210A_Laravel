@@ -9,12 +9,32 @@ use Illuminate\Support\Str;
 
 class ProductController extends Controller
 {
-    public function index(){
+    public function index(Request $request){
 //        $products = Product::onlyTrashed()->orderBy("id","desc")->paginate(20);
 //        $products = Product::withTrashed()->orderBy("id","desc")->paginate(20);
-        $products = Product::orderBy("id","desc")->paginate(20);
+        $search = $request->get("search");
+        $category_id = $request->get("category_id");
+        $price_from = $request->get("price_from");
+        $price_to = $request->get("price_to");
+        $rate = $request->get("rate");
+        $qty_from = $request->get("qty_from");
+        $qty_to = $request->get("qty_to");
+        // 1 (0) + 4 (1) + 6 (2) + 3(3) + 1(4) = 15
+//        if($request->has("search") && $request->has("category_id")) {
+//            $products = Product::where("category_id", $category_id)->where("name", 'like', "%$search%")->orderBy("id", "desc")->paginate(20);
+//        }elseif($request->has("search") && !$request->has("category_id")){
+//
+//        }elseif(!$request->has("search") && $request->has("category_id")){
+//
+//        }else{
+//            $products = Product::orderBy("id","desc")->paginate(20);
+//        }
+        $products = Product::Search($request)->FilterCategory($request)->orderBy("id","desc")->paginate(20);
+        // Scope search
+        $categories = Category::all();
         return view("admin.pages.product.index",[
-            "products"=>$products
+            "products"=>$products,
+            'categories'=>$categories
         ]);
     }
 
